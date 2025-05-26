@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace Rating_Rush.Domain
 {
@@ -25,6 +26,7 @@ namespace Rating_Rush.Domain
         private Popularity Quality { get; }
         private static Random Random { get; } = new Random();
         private const int ErrorRate = 0;
+        private const int MatchChance = 75;
 
         public Movie(Rating usersRating, string title, string genre, string posterName, string country, 
             int budget, int ageRate, Company company, Human director, Human mainActor, TimeSpan time)
@@ -76,22 +78,33 @@ namespace Rating_Rush.Domain
         {
             string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             string generationDir = Path.Combine(solutionDir, "Rating Rush", "For Generation");
-            var genreChance = Random.Next(10);
+            var genreChance = Random.Next(100);
             (string, Popularity) style = ("", Quality);
-            if (genreChance < 7)
-            {
-                var styles = GenresPopularity.Where(pair => pair.Item2 == Quality).ToArray();
-                style = styles[Random.Next(styles.Length)];
-            }
+            var popularGenres = GenresPopularity.Where(genre => genre.Item2 == Popularity.High).ToList();
+            var mediumGenres = GenresPopularity.Where(genre => genre.Item2 == Popularity.Medium).ToList();
+            var badGenres = GenresPopularity.Where(genre => genre.Item2 == Popularity.Low).ToList();
+            if (genreChance < MatchChance)
+                style = SetStyle(badGenres, mediumGenres, popularGenres);
+            else if (genreChance < MatchChance + (100 - MatchChance) / 2)
+                style = SetStyle(popularGenres, badGenres, mediumGenres);
             else
-            {
-                while (style.Item2 == Quality)
-                    style = GenresPopularity[Random.Next(GenresPopularity.Count)];
-            }
+                style = SetStyle(mediumGenres, popularGenres, badGenres);
             var posters = Directory.GetFiles(Path.Combine(generationDir, "Posters", style.Item1.Split().Last()))
                 .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase)).ToArray();
-            //return (style.Item1.Split().First(), Path.GetFileName(posters[Random.Next(posters.Length)]));
             return (style.Item1.Split().First(), posters[Random.Next(posters.Length)]);
+        }
+
+        private (string, Popularity) SetStyle(List<(string, Popularity)> firstCategory, 
+            List<(string, Popularity)> secondCategory, List<(string, Popularity)> thirdCategory)
+        {
+            (string, Popularity) style = ("", Quality);
+            if (Quality == Popularity.Low)
+                style = firstCategory[Random.Next(firstCategory.Count)];
+            else if (Quality == Popularity.Medium)
+                style = secondCategory[Random.Next(secondCategory.Count)];
+            else
+                style = thirdCategory[Random.Next(thirdCategory.Count)];
+            return style;
         }
 
         private int UpdateUsersRating(int value, int maxValue, int minValue)
@@ -108,12 +121,12 @@ namespace Rating_Rush.Domain
             int timeRange;
             if ((int)Quality == 0 || (int)Quality == 2)
             {
-                int timeChance = Random.Next(20);
-                if (timeChance < 7)
+                int timeChance = Random.Next(100);
+                if (timeChance < MatchChance / 2)
                     timeRange = Quality == Popularity.High ? 1 : 0;
-                else if (timeChance < 14)
+                else if (timeChance < MatchChance)
                     timeRange = Quality == Popularity.High ? 2 : 3;
-                else if (timeChance < 17)
+                else if (timeChance < (100 - MatchChance) / 2 + MatchChance)
                     timeRange = Quality == Popularity.High ? 0 : 1;
                 else
                     timeRange = Quality == Popularity.High ? 3 : 2;
@@ -148,12 +161,12 @@ namespace Rating_Rush.Domain
             int ageRange;
             if (Quality == Popularity.High || Quality == Popularity.Low)
             {
-                int ageChance = Random.Next(20);
-                if (ageChance < 7)
+                int ageChance = Random.Next(100);
+                if (ageChance < MatchChance / 2)
                     ageRange = Quality == Popularity.High ? 0 : 1;
-                else if (ageChance < 14)
+                else if (ageChance < MatchChance)
                     ageRange = Quality == Popularity.High ? 3 : 2;
-                else if (ageChance < 17)
+                else if (ageChance < (100 - MatchChance) / 2 + MatchChance)
                     ageRange = Quality == Popularity.High ? 1 : 0;
                 else
                     ageRange = Quality == Popularity.High ? 2 : 3;
@@ -194,12 +207,12 @@ namespace Rating_Rush.Domain
             int budgetRange;
             if ((int) Quality == 0 || (int) Quality == 2)
             {
-                int budgetChance = Random.Next(20);
-                if (budgetChance < 7)
+                int budgetChance = Random.Next(100);
+                if (budgetChance < MatchChance / 2)
                     budgetRange = Quality == Popularity.High ? 0 : 1;
-                else if (budgetChance < 10)
+                else if (budgetChance < (100 - MatchChance) / 2 + MatchChance / 2)
                     budgetRange = Quality == Popularity.High ? 1 : 0;
-                else if (budgetChance < 17)
+                else if (budgetChance < (100 - MatchChance) / 2 + MatchChance)
                     budgetRange = Quality == Popularity.High ? 2 : 3;
                 else
                     budgetRange = Quality == Popularity.High ? 3 : 2;
@@ -238,17 +251,17 @@ namespace Rating_Rush.Domain
             template = FillTemplate(template, SpeechPart.Verb.ToString());
             template = FillTemplate(template, SpeechPart.Adjective.ToString());
             if ((int) Quality == 2)
-                template = AddNumberToTitleIfNecessary(template, 3, 5);
+                template = AddNumberToTitleIfNecessary(template, (100 - MatchChance) / 2, 100 - MatchChance);
             else if ((int) Quality == 1)
-                template = AddNumberToTitleIfNecessary(template, 3, 16);
+                template = AddNumberToTitleIfNecessary(template, (100 - MatchChance) / 2, MatchChance + (100 - MatchChance) / 2);
             else
-                template = AddNumberToTitleIfNecessary(template, 14, 16);
+                template = AddNumberToTitleIfNecessary(template, MatchChance, MatchChance + (100 - MatchChance) / 2);
             return template[0].ToString().ToUpper() + template.Substring(1, template.Length - 1);
         }
 
         private string AddNumberToTitleIfNecessary(string template, int chanceOfBigNumber, int chanceOfSmallNumber)
         {
-            var chanceOfHavingNumber = Random.Next(20);
+            var chanceOfHavingNumber = Random.Next(100);
             if (chanceOfHavingNumber < chanceOfBigNumber)
             {
                 UsersRating.Plot -= (1 + Random.Next(-ErrorRate, ErrorRate + 1));

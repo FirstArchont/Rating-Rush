@@ -235,9 +235,9 @@ namespace Tests
             for (int i = 0; i < totalAttempts; i++)
             {
                 var company = new Movie(day.GenresPopularity);
-                if (company.UsersRating.TotalRating < 35)
+                if (company.UsersRating.TotalRating < 30)
                     lowRatingCount++;
-                else if (company.UsersRating.TotalRating > 65)
+                else if (company.UsersRating.TotalRating > 70)
                     highRatingCount++;
                 else
                     mediumRatingCount++;

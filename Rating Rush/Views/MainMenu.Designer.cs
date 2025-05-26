@@ -41,6 +41,7 @@ namespace Rating_Rush.Views
 
         private void InitializeComponent()
         {
+            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainMenu));
             this.gameModMenu = new System.Windows.Forms.PictureBox();
             this.tutorialButton = new System.Windows.Forms.Button();
@@ -129,7 +130,7 @@ namespace Rating_Rush.Views
             this.startScreen.Controls.Add(this.exitButton);
             this.startScreen.Controls.Add(this.settingsButton);
             this.startScreen.Controls.Add(this.startGameButton);
-            this.startScreen.Image = ((System.Drawing.Image)(resources.GetObject("startScreen.Image")));
+            this.startScreen.Image = Image.FromFile(Path.Combine(solutionDir, "rating Rush", "Views", "Visual", "Main Menu.png"));
             this.startScreen.Location = new System.Drawing.Point(0, 0);
             this.startScreen.Name = "startScreen";
             this.startScreen.SizeMode = PictureBoxSizeMode.Zoom;
@@ -170,13 +171,13 @@ namespace Rating_Rush.Views
             this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsButton.Location = new System.Drawing.Point(841, 509);
+            this.settingsButton.Location = new System.Drawing.Point(820, 509);
             this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(249, 53);
+            this.settingsButton.Size = new System.Drawing.Size(290, 53);
             this.settingsButton.TabIndex = 1;
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
-            SetPosition(settingsButton, 249, 53, 841, 509);
+            SetPosition(settingsButton, 285, 53, 820, 509);
             // 
             // startGameButton
             // 
