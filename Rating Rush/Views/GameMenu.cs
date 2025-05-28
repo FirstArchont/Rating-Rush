@@ -106,8 +106,11 @@ namespace Rating_Rush.Views
         private void SoundsVolume_Scroll(object sender, EventArgs e)
         {
             MainForm.SoundsVolume = (float)soundsVolume.Value / 10;
-            SoundsPlayer.Volume = MainForm.SoundsVolume;
-            ChooseSound("Box Office.mp3");
+            if (MainForm.SoundsVolume != 0)
+            {
+                SoundsPlayer.Volume = MainForm.SoundsVolume;
+                ChooseSound("Box Office.mp3");
+            }
         }
 
         private void ChooseSound(string sound)

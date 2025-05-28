@@ -74,7 +74,6 @@ namespace Rating_Rush.Views
 
         private void Poster_MouseUp(object sender, MouseEventArgs e)
         {
-            SoundsPlayer.Volume = MainForm.SoundsVolume;
             ChooseSound("Sending Review.wav");
             var rectangle = new Rectangle(sendingZone.Location.X, sendingZone.Location.Y,
                     sendingZone.Location.X + sendingZone.Size.Width, sendingZone.Location.Y + sendingZone.Size.Height);
@@ -95,11 +94,15 @@ namespace Rating_Rush.Views
 
         private void ChooseSound(string sound)
         {
-            SoundsPlayer.Dispose();
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            var soundsFile = new AudioFileReader(Path.Combine(solutionDir, solutionDir, "Rating Rush", "Audio", "Sounds", Path.GetFileName(sound)));
-            SoundsPlayer.Init(soundsFile);
-            SoundsPlayer.Play();
+            if (MainForm.SoundsVolume != 0)
+            {
+                SoundsPlayer.Dispose();
+                SoundsPlayer.Volume = MainForm.SoundsVolume;
+                string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+                var soundsFile = new AudioFileReader(Path.Combine(solutionDir, solutionDir, "Rating Rush", "Audio", "Sounds", Path.GetFileName(sound)));
+                SoundsPlayer.Init(soundsFile);
+                SoundsPlayer.Play();
+            }
         }
 
         private void RemoveMovieInformation()
@@ -119,19 +122,16 @@ namespace Rating_Rush.Views
             if (Player.HasPlayerLostDueToMoney())
             {
                 endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "LooseMoneyScreen.png"));
-                SoundsPlayer.Volume = MainForm.SoundsVolume;
                 ChooseSound("Loose.mp3");
             }
             else if (Player.HasPlayerLostDueToFame())
             {
                 endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "LooseFameScreen.png"));
-                SoundsPlayer.Volume = MainForm.SoundsVolume;
                 ChooseSound("Loose.mp3");
             }
             else
             {
                 endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "WinScreen.png"));
-                SoundsPlayer.Volume = MainForm.SoundsVolume;
                 ChooseSound("Applause.wav");
             }
             background.Controls.Add(endGameScreen);
@@ -141,7 +141,6 @@ namespace Rating_Rush.Views
 
         public void EndTheDay()
         {
-            SoundsPlayer.Volume = MainForm.SoundsVolume;
             ChooseSound("Box Office.mp3");
             Game.EndTheDay();
             UpdateGameInformation();
