@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace Rating_Rush.Views
     public partial class mainMenu : UserControl
     {
         private WaveOutEvent MusicPlayer;
+        private WaveOutEvent SoundsPlayer = new WaveOutEvent();
         private AudioFileReader MusicFile;
         private MainForm MainForm;
 
@@ -38,6 +40,13 @@ namespace Rating_Rush.Views
                     MusicPlayer.Play();
                 }
             };
+            SoundsPlayer.PlaybackStopped += SoundsPlayer_PlaybackStopped;
+        }
+
+        private void SoundsPlayer_PlaybackStopped(object sender, StoppedEventArgs args)
+        {
+            if (SoundsPlayer.PlaybackState == PlaybackState.Stopped)
+                MusicPlayer.Volume = MainForm.MusicVolume;
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -66,6 +75,17 @@ namespace Rating_Rush.Views
         private void SoundsVolume_Scroll(object sender, EventArgs e)
         {
             MainForm.SoundsVolume = (float)soundsVolume.Value / 10;
+            SoundsPlayer.Volume = MainForm.SoundsVolume;
+            ChooseSound("Box Office.mp3");
+        }
+
+        private void ChooseSound(string sound)
+        {
+            SoundsPlayer.Dispose();
+            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            var soundsFile = new AudioFileReader(Path.Combine(solutionDir, "Rating Rush", "Audio", "Sounds", Path.GetFileName(sound)));
+            SoundsPlayer.Init(soundsFile);
+            SoundsPlayer.Play();
         }
 
         private void BackSettingsButton_Click(object sender, EventArgs e)

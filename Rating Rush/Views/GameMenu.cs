@@ -17,9 +17,9 @@ namespace Rating_Rush.Views
 {
     public partial class GameMenu : UserControl
     {
-        private Control Gameplay;
         private MainForm MainForm;
         private WaveOutEvent MusicPlayer;
+        private WaveOutEvent SoundsPlayer = new WaveOutEvent();
         private AudioFileReader MusicFile;
 
         public GameMenu(MainForm mainForm)
@@ -41,6 +41,13 @@ namespace Rating_Rush.Views
                     MusicPlayer.Play();
                 }
             };
+            SoundsPlayer.PlaybackStopped += SoundsPlayer_PlaybackStopped;
+        }
+
+        private void SoundsPlayer_PlaybackStopped(object sender, StoppedEventArgs args)
+        {
+            if (SoundsPlayer.PlaybackState == PlaybackState.Stopped)
+                MusicPlayer.Volume = MainForm.MusicVolume;
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -99,6 +106,17 @@ namespace Rating_Rush.Views
         private void SoundsVolume_Scroll(object sender, EventArgs e)
         {
             MainForm.SoundsVolume = (float)soundsVolume.Value / 10;
+            SoundsPlayer.Volume = MainForm.SoundsVolume;
+            ChooseSound("Box Office.mp3");
+        }
+
+        private void ChooseSound(string sound)
+        {
+            SoundsPlayer.Dispose();
+            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            var soundsFile = new AudioFileReader(Path.Combine(solutionDir, solutionDir, "Rating Rush", "Audio", "Sounds", Path.GetFileName(sound)));
+            SoundsPlayer.Init(soundsFile);
+            SoundsPlayer.Play();
         }
     }
 }

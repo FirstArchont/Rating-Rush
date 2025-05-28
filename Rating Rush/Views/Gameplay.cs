@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Rating_Rush.Domain;
 using System.Drawing.Drawing2D;
 using System.Reflection;
+using System.Media;
 //using System.Reflection.Emit;
 
 namespace Rating_Rush.Views
@@ -19,6 +20,7 @@ namespace Rating_Rush.Views
     public partial class Gameplay : UserControl
     {
         public WaveOutEvent MusicPlayer;
+        public WaveOutEvent SoundsPlayer = new WaveOutEvent();
         private AudioFileReader MusicFile;
         private MainForm MainForm;
         public Game Game;
@@ -61,10 +63,19 @@ namespace Rating_Rush.Views
             UpdateDayInformation();
             UpdatePlayerInformation();
             UpdateProgressBar();
+            SoundsPlayer.PlaybackStopped += SoundsPlayer_PlaybackStopped;
+        }
+
+        private void SoundsPlayer_PlaybackStopped(object sender, StoppedEventArgs args)
+        {
+            if (SoundsPlayer.PlaybackState == PlaybackState.Stopped)
+                MusicPlayer.Volume = MainForm.MusicVolume;
         }
 
         private void Poster_MouseUp(object sender, MouseEventArgs e)
         {
+            SoundsPlayer.Volume = MainForm.SoundsVolume;
+            ChooseSound("Sending Review.wav");
             var rectangle = new Rectangle(sendingZone.Location.X, sendingZone.Location.Y,
                     sendingZone.Location.X + sendingZone.Size.Width, sendingZone.Location.Y + sendingZone.Size.Height);
             if (!rectangle.Contains(MousePosition))
@@ -82,6 +93,15 @@ namespace Rating_Rush.Views
             }
         }
 
+        private void ChooseSound(string sound)
+        {
+            SoundsPlayer.Dispose();
+            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            var soundsFile = new AudioFileReader(Path.Combine(solutionDir, solutionDir, "Rating Rush", "Audio", "Sounds", Path.GetFileName(sound)));
+            SoundsPlayer.Init(soundsFile);
+            SoundsPlayer.Play();
+        }
+
         private void RemoveMovieInformation()
         {
             background.Controls.Remove(sendingZone);
@@ -97,11 +117,23 @@ namespace Rating_Rush.Views
             Timer.Stop();
             string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             if (Player.HasPlayerLostDueToMoney())
+            {
                 endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "LooseMoneyScreen.png"));
+                SoundsPlayer.Volume = MainForm.SoundsVolume;
+                ChooseSound("Loose.mp3");
+            }
             else if (Player.HasPlayerLostDueToFame())
+            {
                 endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "LooseFameScreen.png"));
+                SoundsPlayer.Volume = MainForm.SoundsVolume;
+                ChooseSound("Loose.mp3");
+            }
             else
+            {
                 endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "WinScreen.png"));
+                SoundsPlayer.Volume = MainForm.SoundsVolume;
+                ChooseSound("Applause.wav");
+            }
             background.Controls.Add(endGameScreen);
             endGameScreen.Controls.Add(mainMenuButton);
             mainMenuButton.Location = new Point((int)(117 * ScreenWidth / OriginalWidth), (int)(226 * ScreenHeight / OriginalHeight));
@@ -109,6 +141,8 @@ namespace Rating_Rush.Views
 
         public void EndTheDay()
         {
+            SoundsPlayer.Volume = MainForm.SoundsVolume;
+            ChooseSound("Box Office.mp3");
             Game.EndTheDay();
             UpdateGameInformation();
             RemoveMovieInformation();

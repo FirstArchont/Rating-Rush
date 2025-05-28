@@ -81,6 +81,16 @@ namespace Rating_Rush.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] gilroy_black {
+            get {
+                object obj = ResourceManager.GetObject("gilroy_black", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Main_Menu {
@@ -117,6 +127,16 @@ namespace Rating_Rush.Properties {
             get {
                 object obj = ResourceManager.GetObject("Settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Uni_Sans {
+            get {
+                object obj = ResourceManager.GetObject("Uni_Sans", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

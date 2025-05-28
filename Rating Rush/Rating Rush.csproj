@@ -266,6 +266,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Rating Rush_TemporaryKey.pfx" />
+    <None Include="Resources\gilroy-black.ttf" />
+    <None Include="Resources\Uni Sans.ttf" />
     <None Include="Views\Visual\Settings.png" />
   </ItemGroup>
   <ItemGroup>
