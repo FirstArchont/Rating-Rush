@@ -74,13 +74,13 @@ namespace Rating_Rush.Views
 
         private void Poster_MouseUp(object sender, MouseEventArgs e)
         {
-            ChooseSound("Sending Review.wav");
             var rectangle = new Rectangle(sendingZone.Location.X, sendingZone.Location.Y,
                     sendingZone.Location.X + sendingZone.Size.Width, sendingZone.Location.Y + sendingZone.Size.Height);
             if (!rectangle.Contains(MousePosition))
                 Poster.Location = new Point((int)(351 * ScreenWidth / OriginalWidth), (int)(90 * ScreenHeight / OriginalHeight));
             else
             {
+                ChooseSound("Sending Review.wav");
                 var movieTitle = background.Controls.OfType<Label>().First(label => label.Name == "movieName").Text;
                 var movieTape = MovieTapes.First(tape => tape.Controls.OfType<Label>().First().Name == movieTitle);
                 background.Controls.Remove(movieTape);
