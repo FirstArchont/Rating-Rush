@@ -124,6 +124,7 @@ namespace Rating_Rush.Views
                 endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "LooseMoneyScreen.png"));
                 ChooseSound("Loose.mp3");
             }
+            //fg
             else if (Player.HasPlayerLostDueToFame())
             {
                 endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "LooseFameScreen.png"));
