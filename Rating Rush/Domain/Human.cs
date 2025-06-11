@@ -60,14 +60,12 @@ namespace Rating_Rush.Domain
 
         private string GenerateName()
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string generationDir = Path.Combine(solutionDir, "Rating Rush", "For Generation");
             string[] firstName;
             if (Random.Next(2) == 0)
-                firstName = File.ReadAllLines(Path.Combine(generationDir, "Male Names.txt"));
+                firstName = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation", "Male Names.txt"));
             else
-                firstName = File.ReadAllLines(Path.Combine(generationDir, "Female Names.txt"));
-            string[] lastName = File.ReadAllLines(Path.Combine(generationDir, "Surnames.txt"));
+                firstName = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation", "Female Names.txt"));
+            string[] lastName = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation", "Surnames.txt"));
             return firstName[Random.Next(firstName.Length)] + ' ' + lastName[Random.Next(lastName.Length)];
         }
     }

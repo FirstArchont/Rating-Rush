@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System;
+using System.IO;
 
 namespace Rating_Rush.Views
 {
@@ -61,7 +62,7 @@ namespace Rating_Rush.Views
             this.background.Controls.Add(this.fameIncome);
             this.background.Controls.Add(this.taxes);
             this.background.Controls.Add(this.backButton);
-            this.background.Image = ((System.Drawing.Image)(resources.GetObject("background.Image")));
+            this.background.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "DayEndScreen.png"));
             this.background.SizeMode = PictureBoxSizeMode.Zoom;
             this.background.Location = new System.Drawing.Point(0, 0);
             this.background.Name = "background";
@@ -195,3 +196,4 @@ namespace Rating_Rush.Views
         private System.Windows.Forms.Button backButton;
     }
 }
+

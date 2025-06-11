@@ -48,39 +48,38 @@ namespace Rating_Rush.Views
 
         private void PlaceStars(int stars)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             background.Controls.Add(resultStars);
             if (stars == 1)
             {
-                resultStars.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "1 star.png"));
+                resultStars.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "1 star.png"));
                 resultStars.Size = new Size(41, 35);
                 resultStars.Location = new Point(162, 381);
                 SetPosition(resultStars, 41, 35, 162, 381);
             }
             else if (stars == 2)
             {
-                resultStars.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "2 stars.png"));
+                resultStars.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "2 stars.png"));
                 resultStars.Size = new Size(87, 35);
                 resultStars.Location = new Point(139, 381);
                 SetPosition(resultStars, 87, 35, 139, 381);
             }
             else if (stars == 3)
             {
-                resultStars.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "3 stars.png"));
+                resultStars.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "3 stars.png"));
                 resultStars.Size = new Size(113, 35);
                 resultStars.Location = new Point(125, 381);
                 SetPosition(resultStars, 113, 35, 125, 381);
             }
             else if (stars == 4)
             {
-                resultStars.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "4 stars.png"));
+                resultStars.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "4 stars.png"));
                 resultStars.Size = new Size(142, 46);
                 resultStars.Location = new Point(112, 374);
                 SetPosition(resultStars, 142, 46, 112, 374);
             }
             else
             {
-                resultStars.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "5 stars.png"));
+                resultStars.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "5 stars.png"));
                 resultStars.Size = new Size(165, 54);
                 resultStars.Location = new Point(100, 371);
                 SetPosition(resultStars, 165, 54, 100, 371);
@@ -94,3 +93,4 @@ namespace Rating_Rush.Views
         }
     }
 }
+

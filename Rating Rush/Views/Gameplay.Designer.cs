@@ -96,9 +96,7 @@ namespace Rating_Rush.Views
             this.background.Controls.Add(this.starsDatabaseButton);
             this.background.Controls.Add(this.cinemaAnalyticsButton);
             this.background.Controls.Add(this.ratingReminderButton);
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            //this.background.Image = ((System.Drawing.Image)(resources.GetObject("background.Image")));
-            this.background.Image = Image.FromFile(Path.Combine(solutionDir, "rating Rush", "Views", "Visual", "Interface.png"));
+            this.background.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "Interface.png"));
             this.background.SizeMode = PictureBoxSizeMode.Zoom;
             this.background.Location = new System.Drawing.Point(0, 0);
             this.background.Name = "background";
@@ -110,7 +108,7 @@ namespace Rating_Rush.Views
             // famePointer
             // 
             this.famePointer.BackColor = System.Drawing.Color.Transparent;
-            this.famePointer.Image = ((System.Drawing.Image)(resources.GetObject("famePointer.Image")));
+            this.famePointer.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "FamePointer.png"));
             this.famePointer.SizeMode = PictureBoxSizeMode.Zoom;
             this.famePointer.Location = new System.Drawing.Point(940, 17);
             this.famePointer.Name = "famePointer";
@@ -165,7 +163,7 @@ namespace Rating_Rush.Views
             // 
             this.ratedMoviesBar.BackColor = System.Drawing.Color.Transparent;
             this.ratedMoviesBar.Controls.Add(this.ratedMovies);
-            this.ratedMoviesBar.Image = ((System.Drawing.Image)(resources.GetObject("ratedMoviesBar.Image")));
+            this.ratedMoviesBar.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "ProgressBar.png"));
             this.ratedMoviesBar.SizeMode = PictureBoxSizeMode.CenterImage;
             this.ratedMoviesBar.Location = new System.Drawing.Point(24, 972);
             this.ratedMoviesBar.Name = "ratedMoviesBar";
@@ -278,7 +276,7 @@ namespace Rating_Rush.Views
             // cinemaAnalyticsTape
             // 
             this.cinemaAnalyticsTape.BackColor = System.Drawing.Color.Transparent;
-            this.cinemaAnalyticsTape.Image = ((System.Drawing.Image)(resources.GetObject("cinemaAnalyticsTape.Image")));
+            this.cinemaAnalyticsTape.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "CinemaAnalyticsTape.png"));
             this.cinemaAnalyticsTape.Location = new System.Drawing.Point(1519, -10);
             this.cinemaAnalyticsTape.Name = "cinemaAnalyticsTape";
             this.cinemaAnalyticsTape.Size = new System.Drawing.Size(85, 150);
@@ -305,8 +303,7 @@ namespace Rating_Rush.Views
             // 
             // ratingReminder
             // 
-            //this.ratingReminder.Image = ((System.Drawing.Image)(resources.GetObject("ratingReminder.Image")));
-            this.ratingReminder.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "Reminder.png"));
+            this.ratingReminder.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "Reminder.png"));
             this.ratingReminder.SizeMode = PictureBoxSizeMode.Zoom;
             this.ratingReminder.Location = new System.Drawing.Point(656, 144);
             this.ratingReminder.Name = "ratingReminder";
@@ -318,7 +315,7 @@ namespace Rating_Rush.Views
             // ratingBoard
             // 
             this.ratingBoard.BackColor = System.Drawing.Color.Transparent;
-            this.ratingBoard.Image = ((System.Drawing.Image)(resources.GetObject("ratingBoard.Image")));
+            this.ratingBoard.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "RatingBoard.png"));
             this.ratingBoard.Location = new System.Drawing.Point(488, 687);
             this.ratingBoard.Name = "ratingBoard";
             this.ratingBoard.Size = new System.Drawing.Size(940, 344);
@@ -330,7 +327,7 @@ namespace Rating_Rush.Views
             // sendingZone
             // 
             this.sendingZone.BackColor = System.Drawing.Color.Transparent;
-            this.sendingZone.Image = ((System.Drawing.Image)(resources.GetObject("sendingZone.Image")));
+            this.sendingZone.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "SendingZone.png"));
             this.sendingZone.Location = new System.Drawing.Point(1486, 667);
             this.sendingZone.Name = "sendingZone";
             this.sendingZone.Size = new System.Drawing.Size(434, 413);
@@ -342,7 +339,7 @@ namespace Rating_Rush.Views
             // endGameScreen
             // 
             this.endGameScreen.BackColor = System.Drawing.SystemColors.Control;
-            this.endGameScreen.Image = ((System.Drawing.Image)(resources.GetObject("endGameScreen.Image")));
+            this.endGameScreen.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "WinScreen.png"));
             this.endGameScreen.Location = new System.Drawing.Point(650, 333);
             this.endGameScreen.Name = "endGameScreen";
             this.endGameScreen.Size = new System.Drawing.Size(609, 339);
@@ -405,6 +402,14 @@ namespace Rating_Rush.Views
             control.Font = new Font(control.Font.FontFamily, newSize, control.Font.Style);
         }
 
+        private static FontFamily GetFontFamily(string fontName)
+        {
+            PrivateFontCollection fontCollection = new PrivateFontCollection();
+            fontCollection.AddFontFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fonts", fontName));
+            FontFamily family = fontCollection.Families[0];
+            return family;
+        }
+
         #endregion
 
         private System.Windows.Forms.PictureBox background;
@@ -430,3 +435,4 @@ namespace Rating_Rush.Views
         private System.Windows.Forms.Button closeRatingReminderButton;
     }
 }
+

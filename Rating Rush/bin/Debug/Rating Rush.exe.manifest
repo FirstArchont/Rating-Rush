@@ -379,14 +379,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Rating Rush.exe" size="41629144">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Rating Rush.exe" size="41627608">
       <assemblyIdentity name="Rating Rush" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>aUJ9boIuosQot+i6hm8jw+UrPhuaEmnnM0IaX11qrys=</dsig:DigestValue>
+        <dsig:DigestValue>5N0rPxf7BKT1f6prPRAP/8DnBZt1dnTzJSlMnAPNB84=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -531,13 +531,13 @@
       <dsig:DigestValue>iIZFPOXw6064vUsfKv3F/7nvBNd4YWq5BIMZdpElajk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Rating Rush.exe.config" size="563">
+  <file name="Rating Rush.exe.config" size="550">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>6667fnOb3ckns1KgN2rpxVsHuG+DgV6gAG2g66+6dck=</dsig:DigestValue>
+      <dsig:DigestValue>POk+vHuaf/JmNfMka5rwwt9xVRedCZ/sgcAhp4KYskw=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

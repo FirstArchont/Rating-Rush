@@ -1,0 +1,11 @@
+Вестерн Westerns
+Нуар Noirs
+Роуд-муви RoadMovies
+Комедия Comedies
+Боевик WarMovies
+Драма Dramas
+Мелодрама Melodramas
+Триллер Thrillers
+Хоррор Horrors
+Фантастика Fantasies
+Мюзикл Musicals

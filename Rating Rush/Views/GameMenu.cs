@@ -26,9 +26,8 @@ namespace Rating_Rush.Views
         {
             MainForm = mainForm;
             InitializeComponent();
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string generationDir = Path.Combine(solutionDir, "Rating Rush", "For Generation");
-            MusicFile = new AudioFileReader(Path.Combine(solutionDir, "Rating Rush", "Audio", "Menu", "Relaxing By The Sea.MP3"));
+            string generationDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation");
+            MusicFile = new AudioFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audio", "Menu", "Relaxing By The Sea.MP3"));
             MusicPlayer = new WaveOutEvent();
             MusicPlayer.Init(MusicFile);
             MusicPlayer.Volume = MainForm.MusicVolume;
@@ -84,9 +83,9 @@ namespace Rating_Rush.Views
         private void SettingButton_Click(object sender, EventArgs e)
         {
             settings.Controls.Add(this.musicVolume);
-            musicVolume.Value = (int) (MainForm.MusicVolume * 10);
+            musicVolume.Value = (int)(MainForm.MusicVolume * 10);
             settings.Controls.Add(soundsVolume);
-            soundsVolume.Value = (int) (MainForm.SoundsVolume * 10);
+            soundsVolume.Value = (int)(MainForm.SoundsVolume * 10);
             settings.Controls.Add(this.backSettingsButton);
             mainGameMenuScreen.Controls.Add(settings);
             settings.BringToFront();
@@ -116,10 +115,10 @@ namespace Rating_Rush.Views
         private void ChooseSound(string sound)
         {
             SoundsPlayer.Dispose();
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            var soundsFile = new AudioFileReader(Path.Combine(solutionDir, solutionDir, "Rating Rush", "Audio", "Sounds", Path.GetFileName(sound)));
+            var soundsFile = new AudioFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audio", "Sounds", Path.GetFileName(sound)));
             SoundsPlayer.Init(soundsFile);
             SoundsPlayer.Play();
         }
     }
 }
+

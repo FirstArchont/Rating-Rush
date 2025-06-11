@@ -98,8 +98,7 @@ namespace Rating_Rush.Views
             {
                 SoundsPlayer.Dispose();
                 SoundsPlayer.Volume = MainForm.SoundsVolume;
-                string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-                var soundsFile = new AudioFileReader(Path.Combine(solutionDir, solutionDir, "Rating Rush", "Audio", "Sounds", Path.GetFileName(sound)));
+                var soundsFile = new AudioFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audio", "Sounds", Path.GetFileName(sound)));
                 SoundsPlayer.Init(soundsFile);
                 SoundsPlayer.Play();
             }
@@ -118,21 +117,19 @@ namespace Rating_Rush.Views
         public void EndTheGame()
         {
             Timer.Stop();
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             if (Player.HasPlayerLostDueToMoney())
             {
-                endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "LooseMoneyScreen.png"));
+                endGameScreen.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "LooseMoneyScreen.png"));
                 ChooseSound("Loose.mp3");
             }
-            //fg
             else if (Player.HasPlayerLostDueToFame())
             {
-                endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "LooseFameScreen.png"));
+                endGameScreen.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "LooseFameScreen.png"));
                 ChooseSound("Loose.mp3");
             }
             else
             {
-                endGameScreen.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "WinScreen.png"));
+                endGameScreen.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "WinScreen.png"));
                 ChooseSound("Applause.wav");
             }
             background.Controls.Add(endGameScreen);
@@ -197,8 +194,7 @@ namespace Rating_Rush.Views
             movieTitle.ForeColor = System.Drawing.Color.Cornsilk;
             SetPosition(movieTitle, 293, 40, 0, 10);
             ScaleFont(movieTitle, 24F);
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            movieTape.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "MovieTape.png"));
+            movieTape.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "MovieTape.png"));
             movieTape.SizeMode = PictureBoxSizeMode.Zoom;
             background.Controls.Add(movieTape);
             MovieTapes.Add(movieTape);
@@ -220,7 +216,6 @@ namespace Rating_Rush.Views
             else
                 movieTitle = (sender as Label).Name;
             var movie = Day.Movies.First(film => film.Title == movieTitle);
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             Poster.Cursor = Cursors.SizeAll;
             Poster.Image = Image.FromFile(movie.PosterName);
             SetPosition(Poster, 340, 510, 351, 90);
@@ -290,9 +285,8 @@ namespace Rating_Rush.Views
 
         private void CreateCircleForRating(PictureBox ratingCircle)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             ratingCircle.BackColor = Color.Transparent;
-            ratingCircle.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "MiddleRating.png"));
+            ratingCircle.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "MiddleRating.png"));
             ratingCircle.SizeMode = PictureBoxSizeMode.Zoom;
             ratingCircle.Controls.OfType<Label>().First().Text = Rating.Plot.ToString();
             RatingBoard.Controls.Add(ratingCircle);
@@ -314,7 +308,6 @@ namespace Rating_Rush.Views
         private void PlaceRatingBoard()
         {
             Rating = new Rating();
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             PlotRatingCircle.Controls.Add(CreateLabelForRating(150));
             CreateCircleForRating(PlotRatingCircle);
             SetPosition(PlotRatingCircle, 150, 150, 322, 0);
@@ -323,11 +316,11 @@ namespace Rating_Rush.Views
             SetPosition(QualityRatingCircle, 150, 150, 319, 192);
             TotalRatingSquare.Controls.Add(CreateLabelForRating(200));
             CreateCircleForRating(TotalRatingSquare);
-            TotalRatingSquare.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "MiddleTotalRating.png"));
+            TotalRatingSquare.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "MiddleTotalRating.png"));
             SetPosition(TotalRatingSquare, 173, 171, 764, 89);
             TotalRatingSquare.Controls.OfType<Label>().First().Text = Rating.TotalRating.ToString();
             RatingBoard.BackColor = Color.Transparent;
-            RatingBoard.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "RatingBoard.png"));
+            RatingBoard.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "RatingBoard.png"));
             RatingBoard.SizeMode = PictureBoxSizeMode.Zoom;
             SetPosition(RatingBoard, 940, 344, 488, 687);
             background.Controls.Add(RatingBoard);
@@ -395,13 +388,12 @@ namespace Rating_Rush.Views
 
         private void UpdateRating(PictureBox ratingCircle)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             if (int.Parse(ratingCircle.Controls.OfType<Label>().First().Text) <= 3)
-                ratingCircle.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "BadRating.png"));
+                ratingCircle.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "BadRating.png"));
             else if (int.Parse(ratingCircle.Controls.OfType<Label>().First().Text) >= 7)
-                ratingCircle.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "GoodRating.png"));
+                ratingCircle.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "GoodRating.png"));
             else
-                ratingCircle.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "MiddleRating.png"));
+                ratingCircle.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "MiddleRating.png"));
             if (Rating.Plot == 10)
                 ratingCircle.Controls.OfType<Label>().First().Location = new Point((int)(10 * ScreenWidth / OriginalWidth), (int)(10 * ScreenHeight / OriginalHeight));
             else
@@ -411,28 +403,27 @@ namespace Rating_Rush.Views
         private void UpdateTotalRating()
         {
             TotalRatingSquare.Controls.OfType<Label>().First().Text = Rating.TotalRating.ToString();
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             if (Rating.TotalRating <= 30)
             {
-                TotalRatingSquare.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "BadTotalRating.png"));
+                TotalRatingSquare.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "BadTotalRating.png"));
                 if (Rating.TotalRating <= 9)
                     TotalRatingSquare.Controls.OfType<Label>().First().Location = new Point((int)(42 * ScreenWidth / OriginalWidth), (int)(29 * ScreenHeight / OriginalHeight));
             }
             else if (Rating.TotalRating >= 70)
             {
-                TotalRatingSquare.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "GoodTotalRating.png"));
+                TotalRatingSquare.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "GoodTotalRating.png"));
                 if (Rating.TotalRating == 100)
                     TotalRatingSquare.Controls.OfType<Label>().First().Location = new Point((int)(0 * ScreenWidth / OriginalWidth), (int)(29 * ScreenHeight / OriginalHeight));
             }
             else
-                TotalRatingSquare.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "MiddleTotalRating.png"));
+                TotalRatingSquare.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "MiddleTotalRating.png"));
             if (Rating.TotalRating > 9 && Rating.TotalRating < 100)
                 TotalRatingSquare.Controls.OfType<Label>().First().Location = new Point((int)(15 * ScreenWidth / OriginalWidth), (int)(29 * ScreenHeight / OriginalHeight));
         }
 
         public void UpdatePlayerInformation()
         {
-            money.Text = Player.Money.ToString() +"$";
+            money.Text = Player.Money.ToString() + "$";
             famePointer.Location = new Point((int)(Player.Fame * 1.1 + 937 * ScreenWidth / OriginalWidth), (int)(17 * ScreenHeight / OriginalHeight));
         }
 
@@ -443,10 +434,9 @@ namespace Rating_Rush.Views
 
         private void ChooseSong()
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            var songs = Directory.GetFiles(Path.Combine(solutionDir, "Rating Rush", "Audio", "Gameplay"));
+            var songs = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audio", "Gameplay"));
             var random = new Random();
-            MusicFile = new AudioFileReader(Path.Combine(solutionDir, solutionDir, "Rating Rush", "Audio", "Gameplay", Path.GetFileName(songs[random.Next(songs.Length)])));
+            MusicFile = new AudioFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audio", "Gameplay", Path.GetFileName(songs[random.Next(songs.Length)])));
             MusicPlayer.Init(MusicFile);
             MusicPlayer.Play();
         }
@@ -471,10 +461,9 @@ namespace Rating_Rush.Views
 
         private void StarsDatabaseButton_Click(object sender, EventArgs e)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             var starsDatabase = new StarsDatabaseControl(Database);
             background.Controls.Add(starsDatabaseLine);
-            starsDatabaseLine.Image = Image.FromFile(Path.Combine(solutionDir, "rating Rush", "Views", "Visual", "Stars Database Tape.png"));
+            starsDatabaseLine.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "Stars Database Tape.png"));
             starsDatabaseLine.BringToFront();
             background.Controls.Add(starsDatabase);
             starsDatabase.BringToFront();

@@ -23,9 +23,7 @@ namespace Rating_Rush.Views
 
         public mainMenu(MainForm mainForm)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string generationDir = Path.Combine(solutionDir, "Rating Rush", "For Generation");
-            MusicFile = new AudioFileReader(Path.Combine(solutionDir, "Rating Rush", "Audio", "Menu", "Relaxing By The Sea.MP3"));
+            MusicFile = new AudioFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audio", "Menu", "Relaxing By The Sea.MP3"));
             MusicPlayer = new WaveOutEvent();
             MusicPlayer.Init(MusicFile);
             MainForm = mainForm;
@@ -59,9 +57,9 @@ namespace Rating_Rush.Views
             this.Controls.Add(settings);
             SetPosition(settings, 1920, 1080, 0, 0);
             settings.Controls.Add(this.musicVolume);
-            musicVolume.Value = (int) (MainForm.MusicVolume * 10);
+            musicVolume.Value = (int)(MainForm.MusicVolume * 10);
             settings.Controls.Add(soundsVolume);
-            soundsVolume.Value = (int) (MainForm.SoundsVolume * 10);
+            soundsVolume.Value = (int)(MainForm.SoundsVolume * 10);
             settings.Controls.Add(this.backSettingsButton);
             settings.BringToFront();
         }
@@ -85,8 +83,7 @@ namespace Rating_Rush.Views
         private void ChooseSound(string sound)
         {
             SoundsPlayer.Dispose();
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            var soundsFile = new AudioFileReader(Path.Combine(solutionDir, "Rating Rush", "Audio", "Sounds", Path.GetFileName(sound)));
+            var soundsFile = new AudioFileReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audio", "Sounds", Path.GetFileName(sound)));
             SoundsPlayer.Init(soundsFile);
             SoundsPlayer.Play();
         }

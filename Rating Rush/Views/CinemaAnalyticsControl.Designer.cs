@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System;
+using System.IO;
 
 namespace Rating_Rush.Views
 {
@@ -65,7 +66,7 @@ namespace Rating_Rush.Views
             this.background.Controls.Add(this.middlePopularityButton);
             this.background.Controls.Add(this.highPopularityButton);
             this.background.Controls.Add(this.closeButton);
-            this.background.Image = ((System.Drawing.Image)(resources.GetObject("background.Image")));
+            this.background.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "CinemaAnalitics.png"));
             this.background.SizeMode = PictureBoxSizeMode.Zoom;
             this.background.Location = new System.Drawing.Point(0, 0);
             this.background.Name = "background";
@@ -137,7 +138,7 @@ namespace Rating_Rush.Views
             // highPopularity
             // 
             this.highPopularity.BackColor = System.Drawing.Color.White;
-            this.highPopularity.Image = ((System.Drawing.Image)(resources.GetObject("highPopularity.Image")));
+            this.highPopularity.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "GoodRating.png"));
             this.highPopularity.SizeMode = PictureBoxSizeMode.Zoom;
             this.highPopularity.Location = new System.Drawing.Point(22, 144);
             this.highPopularity.Name = "highPopularity";
@@ -150,7 +151,7 @@ namespace Rating_Rush.Views
             // middlePopularity
             // 
             this.middlePopularity.BackColor = System.Drawing.Color.White;
-            this.middlePopularity.Image = ((System.Drawing.Image)(resources.GetObject("middlePopularity.Image")));
+            this.middlePopularity.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "MiddleRating.png"));
             this.middlePopularity.SizeMode = PictureBoxSizeMode.Zoom;
             this.middlePopularity.Location = new System.Drawing.Point(22, 215);
             this.middlePopularity.Name = "middlePopularity";
@@ -163,7 +164,7 @@ namespace Rating_Rush.Views
             // badPopularity
             // 
             this.badPopularity.BackColor = System.Drawing.Color.White;
-            this.badPopularity.Image = ((System.Drawing.Image)(resources.GetObject("badPopularity.Image")));
+            this.badPopularity.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "BadRating.png"));
             this.badPopularity.SizeMode = PictureBoxSizeMode.Zoom;
             this.badPopularity.Location = new System.Drawing.Point(22, 291);
             this.badPopularity.Name = "badPopularity";

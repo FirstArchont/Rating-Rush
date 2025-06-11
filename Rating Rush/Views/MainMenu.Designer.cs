@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 using System.Windows.Forms;
@@ -41,7 +42,6 @@ namespace Rating_Rush.Views
 
         private void InitializeComponent()
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainMenu));
             this.gameModMenu = new System.Windows.Forms.PictureBox();
             this.tutorialButton = new System.Windows.Forms.Button();
@@ -75,7 +75,7 @@ namespace Rating_Rush.Views
             // 
             this.gameModMenu.Controls.Add(this.tutorialButton);
             this.gameModMenu.Controls.Add(this.infinityGameModButton);
-            this.gameModMenu.Image = ((System.Drawing.Image)(resources.GetObject("gameModMenu.Image")));
+            this.gameModMenu.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "game Mod Menu.png"));
             this.gameModMenu.Location = new System.Drawing.Point(0, 0);
             this.gameModMenu.Name = "gameModMenu";
             this.gameModMenu.Size = new System.Drawing.Size(1920, 1080);
@@ -130,7 +130,7 @@ namespace Rating_Rush.Views
             this.startScreen.Controls.Add(this.exitButton);
             this.startScreen.Controls.Add(this.settingsButton);
             this.startScreen.Controls.Add(this.startGameButton);
-            this.startScreen.Image = Image.FromFile(Path.Combine(solutionDir, "rating Rush", "Views", "Visual", "Main Menu.png"));
+            this.startScreen.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "Main Menu.png"));
             this.startScreen.Location = new System.Drawing.Point(0, 0);
             this.startScreen.Name = "startScreen";
             this.startScreen.SizeMode = PictureBoxSizeMode.Zoom;
@@ -197,7 +197,7 @@ namespace Rating_Rush.Views
             // 
             // difficultyLevels
             // 
-            this.difficultyLevels.Image = ((System.Drawing.Image)(resources.GetObject("difficultyLevels.Image")));
+            this.difficultyLevels.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "Difficulty.png"));
             this.difficultyLevels.SizeMode = PictureBoxSizeMode.Zoom;
             this.difficultyLevels.Location = new System.Drawing.Point(0, 0);
             this.difficultyLevels.Name = "difficultyLevels";
@@ -272,7 +272,7 @@ namespace Rating_Rush.Views
             // 
             // settings
             // 
-            this.settings.Image = ((System.Drawing.Image)(resources.GetObject("settings.Image")));
+            this.settings.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "Settings.png"));
             this.settings.SizeMode = PictureBoxSizeMode.Zoom;
             //this.settings.Location = new System.Drawing.Point(0, 0);
             this.settings.Name = "settings";
