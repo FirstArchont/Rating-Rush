@@ -49,27 +49,25 @@ namespace Rating_Rush.Views
 
         private void PlaceFameArrow((int fame, int money) results)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             if (results.fame > 0)
             {
                 fameArrow.Location = new Point((int)(215 * ScreenWidth / OriginalWidth), (int)(460 * ScreenHeight / OriginalHeight));
-                fameArrow.Image = Image.FromFile(Path.Combine(solutionDir, "rating Rush", "Views", "Visual", "FamePlus.png"));
+                fameArrow.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "FamePlus.png"));
             }
             else if (results.fame < 0)
             {
                 fameArrow.Location = new Point((int)(215 * ScreenWidth / OriginalWidth), (int)(460 * ScreenHeight / OriginalHeight));
-                fameArrow.Image = Image.FromFile(Path.Combine(solutionDir, "rating Rush", "Views", "Visual", "FameMinus.png"));
+                fameArrow.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "FameMinus.png"));
             }
             else
             {
                 fameArrow.Location = new Point((int)(215 * ScreenWidth / OriginalWidth), (int)(460 * ScreenHeight / OriginalHeight));
-                fameArrow.Image = Image.FromFile(Path.Combine(solutionDir, "rating Rush", "Views", "Visual", "FameDontChange.png"));
+                fameArrow.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "FameDontChange.png"));
             }
         }
 
         private PictureBox CreateRatingSquare(int totalRating)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             var rating = new Label();
             rating.Font = new Font("Uni Sans Heavy CAPS", 60F, FontStyle.Bold);
             ScaleFont(rating, 60F);
@@ -89,21 +87,20 @@ namespace Rating_Rush.Views
 
         private void FillTotalRatingSquare(int rating, PictureBox square)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             if (rating <= 30)
             {
-                square.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "BadTotalRating.png"));
+                square.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "BadTotalRating.png"));
                 if (CurrentGameplay.Rating.TotalRating <= 9)
                     square.Controls.OfType<Label>().First().Location = new Point((int)(39 * ScreenWidth / OriginalWidth), (int)(29 * ScreenHeight / OriginalHeight));
             }
             else if (rating >= 70)
             {
-                square.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "GoodTotalRating.png"));
+                square.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "GoodTotalRating.png"));
                 if (CurrentGameplay.Rating.TotalRating == 100)
                     square.Controls.OfType<Label>().First().Location = new Point((int)(0 * ScreenWidth / OriginalWidth), (int)(29 * ScreenHeight / OriginalHeight));
             }
             else
-                square.Image = Image.FromFile(Path.Combine(solutionDir, "Rating Rush", "Views", "Visual", "MiddleTotalRating.png"));
+                square.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "MiddleTotalRating.png"));
             if (CurrentGameplay.Rating.TotalRating > 9 && CurrentGameplay.Rating.TotalRating < 100)
                 square.Controls.OfType<Label>().First().Location = new Point((int)(15 * ScreenWidth / OriginalWidth), (int)(29 * ScreenHeight / OriginalHeight));
         }
@@ -121,3 +118,4 @@ namespace Rating_Rush.Views
         }
     }
 }
+

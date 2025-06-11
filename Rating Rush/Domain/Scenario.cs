@@ -114,9 +114,8 @@ namespace Rating_Rush.Domain
             genresPopularity.Add(("Хоррор", Popularity.Low));
             genresPopularity.Add(("Мелодрама", Popularity.Low));
             genresPopularity.Add(("Фантастика", Popularity.Low));
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             days.Add(new Day(1, TimeSpan.FromMinutes(59), genresPopularity, "Drifter: Blood and Dust", "Вестерн",
-            Path.Combine(solutionDir, "Rating Rush", "For Generation", "Posters", "RoadMovies", "RoadMovie8.png"), 
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation", "Posters", "RoadMovies", "RoadMovie8.png"),
             "Блю-Ривер", 12000000, 18, new Company("Tower of The Leader Production", 5), new Human("Ширли Тимминс", 1), new Human("Адам Рассел", 2), TimeSpan.FromMinutes(210)));
             return days;
         }

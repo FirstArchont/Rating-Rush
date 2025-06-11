@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.IO;
 
 namespace Rating_Rush.Views
 {
@@ -58,7 +59,7 @@ namespace Rating_Rush.Views
             // 
             this.background.Controls.Add(this.findButton);
             this.background.Controls.Add(this.closeButton);
-            this.background.Image = ((System.Drawing.Image)(resources.GetObject("background.Image")));
+            this.background.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "StarsDatabase.png"));
             this.background.SizeMode = PictureBoxSizeMode.Zoom;
             this.background.Location = new System.Drawing.Point(0, 0);
             this.background.Name = "background";
@@ -99,7 +100,7 @@ namespace Rating_Rush.Views
             // 
             // resultStars
             // 
-            this.resultStars.Image = ((System.Drawing.Image)(resources.GetObject("resultStars.Image")));
+            this.resultStars.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "5 stars.png"));
             this.resultStars.SizeMode = PictureBoxSizeMode.Zoom;
             this.resultStars.Location = new System.Drawing.Point(100, 371);
             this.resultStars.Name = "resultStars";

@@ -28,7 +28,7 @@ namespace Rating_Rush.Domain
         private const int ErrorRate = 0;
         private const int MatchChance = 75;
 
-        public Movie(Rating usersRating, string title, string genre, string posterName, string country, 
+        public Movie(Rating usersRating, string title, string genre, string posterName, string country,
             int budget, int ageRate, Company company, Human director, Human mainActor, TimeSpan time)
         {
             UsersRating = usersRating;
@@ -46,9 +46,7 @@ namespace Rating_Rush.Domain
 
         public Movie(List<(string, Popularity)> GenresPopularity)
         {
-            Quality = (Popularity) Random.Next(3);
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string generationDir = Path.Combine(solutionDir, "Rating Rush", "For Generation");
+            Quality = (Popularity)Random.Next(3);
             UsersRating = new Rating(1);
             Title = GenerateTitle();
             var style = GenerateGenreAndPosterName(GenresPopularity);
@@ -69,15 +67,12 @@ namespace Rating_Rush.Domain
 
         private string GenerateCountry()
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            var countries = File.ReadAllLines(Path.Combine(solutionDir, "Rating Rush", "For Generation", "Countries.txt"));
+            var countries = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation", "Countries.txt"));
             return countries[Random.Next(countries.Length)];
         }
 
         private (string, string) GenerateGenreAndPosterName(List<(string, Popularity)> GenresPopularity)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string generationDir = Path.Combine(solutionDir, "Rating Rush", "For Generation");
             var genreChance = Random.Next(100);
             (string, Popularity) style = ("", Quality);
             var popularGenres = GenresPopularity.Where(genre => genre.Item2 == Popularity.High).ToList();
@@ -89,12 +84,12 @@ namespace Rating_Rush.Domain
                 style = SetStyle(popularGenres, badGenres, mediumGenres);
             else
                 style = SetStyle(mediumGenres, popularGenres, badGenres);
-            var posters = Directory.GetFiles(Path.Combine(generationDir, "Posters", style.Item1.Split().Last()))
+            var posters = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation", "Posters", style.Item1.Split().Last()))
                 .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase)).ToArray();
             return (style.Item1.Split().First(), posters[Random.Next(posters.Length)]);
         }
 
-        private (string, Popularity) SetStyle(List<(string, Popularity)> firstCategory, 
+        private (string, Popularity) SetStyle(List<(string, Popularity)> firstCategory,
             List<(string, Popularity)> secondCategory, List<(string, Popularity)> thirdCategory)
         {
             (string, Popularity) style = ("", Quality);
@@ -205,7 +200,7 @@ namespace Rating_Rush.Domain
         private int GenerateBudget()
         {
             int budgetRange;
-            if ((int) Quality == 0 || (int) Quality == 2)
+            if ((int)Quality == 0 || (int)Quality == 2)
             {
                 int budgetChance = Random.Next(100);
                 if (budgetChance < MatchChance / 2)
@@ -225,7 +220,7 @@ namespace Rating_Rush.Domain
                 UsersRating.Quality += (1 + Random.Next(-ErrorRate, ErrorRate + 1));
                 return (int)(Math.Round(Random.Next(LowestBudget, IndieMovie) / 100000.0) * 100000);
             }
-            else if(budgetRange == 1)
+            else if (budgetRange == 1)
             {
                 UsersRating.Quality -= (1 + Random.Next(-ErrorRate, ErrorRate + 1));
                 return (int)(Math.Round(Random.Next(IndieMovie, BMovie) / 100000.0) * 100000);
@@ -244,15 +239,14 @@ namespace Rating_Rush.Domain
 
         private string GenerateTitle()
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            var templates = File.ReadAllLines(Path.Combine(solutionDir, "Rating Rush", "For Generation", "Templates For Movie Name.txt"));
+            var templates = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation", "Templates For Movie Name.txt"));
             var template = templates[Random.Next(templates.Length)];
             template = FillTemplate(template, SpeechPart.Noun.ToString());
             template = FillTemplate(template, SpeechPart.Verb.ToString());
             template = FillTemplate(template, SpeechPart.Adjective.ToString());
-            if ((int) Quality == 2)
+            if ((int)Quality == 2)
                 template = AddNumberToTitleIfNecessary(template, (100 - MatchChance) / 2, 100 - MatchChance);
-            else if ((int) Quality == 1)
+            else if ((int)Quality == 1)
                 template = AddNumberToTitleIfNecessary(template, (100 - MatchChance) / 2, MatchChance + (100 - MatchChance) / 2);
             else
                 template = AddNumberToTitleIfNecessary(template, MatchChance, MatchChance + (100 - MatchChance) / 2);
@@ -277,8 +271,7 @@ namespace Rating_Rush.Domain
 
         private string FillTemplate(string template, string speechPart)
         {
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            var speechParts = File.ReadAllLines(Path.Combine(solutionDir, "Rating Rush", "For Generation", speechPart + "s.txt"));
+            var speechParts = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation", speechPart + "s.txt"));
             speechPart = '[' + speechPart + "]";
             var changesAmount = (template.Length - template.Replace(speechPart, "").Length) / speechPart.Length;
             for (int i = 0; i < changesAmount; i++)

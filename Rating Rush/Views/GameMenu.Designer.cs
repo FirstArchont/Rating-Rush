@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System;
+using System.IO;
 
 namespace Rating_Rush.Views
 {
@@ -62,7 +63,7 @@ namespace Rating_Rush.Views
             this.mainGameMenuScreen.Controls.Add(this.backButton);
             this.mainGameMenuScreen.Controls.Add(this.backToMainMenuButton);
             this.mainGameMenuScreen.Controls.Add(this.settingButton);
-            this.mainGameMenuScreen.Image = ((System.Drawing.Image)(resources.GetObject("mainGameMenuScreen.Image")));
+            this.mainGameMenuScreen.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "GameMenu.png"));
             this.mainGameMenuScreen.SizeMode = PictureBoxSizeMode.Zoom;
             this.mainGameMenuScreen.Location = new System.Drawing.Point(0, 0);
             this.mainGameMenuScreen.Name = "mainGameMenuScreen";
@@ -121,7 +122,7 @@ namespace Rating_Rush.Views
             // 
             // settings
             // 
-            this.settings.Image = ((System.Drawing.Image)(resources.GetObject("settings.Image")));
+            this.settings.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "Settings.png"));
             this.settings.SizeMode = PictureBoxSizeMode.Zoom;
             this.settings.Location = new System.Drawing.Point(0, 0);
             this.settings.Name = "settings";

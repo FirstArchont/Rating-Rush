@@ -32,12 +32,11 @@ namespace Rating_Rush.Views
             }
             Genres.Clear();
             int counter = 0;
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             var genres = CinemaAnalytics.FindGenres(popularity);
             foreach (var style in genres)
             {
                 var circle = new PictureBox();
-                circle.Image = Image.FromFile(Path.Combine(solutionDir, "rating Rush", "Views", "Visual", "Ellipse.png"));
+                circle.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "Ellipse.png"));
                 circle.SizeMode = PictureBoxSizeMode.Zoom;
                 circle.BackColor = Color.Transparent;
                 circle.Location = new Point((int)(93 * ScreenWidth / OriginalWidth), (int)(150 + 40 * counter * ScreenHeight / OriginalHeight));

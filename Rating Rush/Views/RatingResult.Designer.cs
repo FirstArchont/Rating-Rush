@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System;
+using System.IO;
 
 namespace Rating_Rush.Views
 {
@@ -57,7 +58,7 @@ namespace Rating_Rush.Views
             this.background.Controls.Add(this.movieName);
             this.background.Controls.Add(this.moneyIncome);
             this.background.Controls.Add(this.fameArrow);
-            this.background.Image = ((System.Drawing.Image)(resources.GetObject("background.Image")));
+            this.background.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "RatingResultWindow.png"));
             this.background.SizeMode = PictureBoxSizeMode.Zoom;
             this.background.Location = new System.Drawing.Point(0, 0);
             this.background.Name = "background";
@@ -68,7 +69,7 @@ namespace Rating_Rush.Views
             // 
             // movieName
             // 
-            this.movieName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.movieName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.movieName.AutoSize = true;
             this.movieName.BackColor = System.Drawing.Color.Transparent;
@@ -100,7 +101,7 @@ namespace Rating_Rush.Views
             // fameArrow
             // 
             this.fameArrow.BackColor = System.Drawing.Color.Transparent;
-            this.fameArrow.Image = ((System.Drawing.Image)(resources.GetObject("fameArrow.Image")));
+            this.fameArrow.Image = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Visual", "FamePlus.png"));
             this.fameArrow.SizeMode = PictureBoxSizeMode.Zoom;
             this.fameArrow.Location = new System.Drawing.Point(212, 460);
             this.fameArrow.Name = "fameArrow";

@@ -33,10 +33,8 @@ namespace Rating_Rush.Domain
             AmountOfMovies = amountOfMovies;
             TimeLeft = time;
             RatedMovies = 0;
-            string solutionDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string generationDir = Path.Combine(solutionDir, "Rating Rush", "For Generation");
-            var genres = File.ReadAllLines(Path.Combine(generationDir, "Genres.txt")).ToList();
-            GenerateGenresPopularity(genres, (int) Math.Round((double) genres.Count / 100 * 20), Popularity.High);
+            var genres = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "For Generation", "Genres.txt")).ToList();
+            GenerateGenresPopularity(genres, (int)Math.Round((double)genres.Count / 100 * 20), Popularity.High);
             GenerateGenresPopularity(genres, (int)Math.Round((double)genres.Count / 100 * 44), Popularity.Medium);
             GenerateGenresPopularity(genres, genres.Count, Popularity.Low);
             Movies = new List<Movie>();
